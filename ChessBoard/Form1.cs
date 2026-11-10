@@ -93,7 +93,6 @@ namespace ChessBoard
 
         private void RenderScene()
         {
-            int k = 0;
             int width = ClientSize.Width / 8;
             int height = ClientSize.Height / 8;
             Color4 d3dColor1 = new Color4(Color.Aqua);
@@ -109,15 +108,13 @@ namespace ChessBoard
                 Invalidate();
             }
             m_oD3D_Device.Clear(ClearFlags.Target, d3dColor1, 0.0f, 0);
-            for (int i = 0; i < 8; i++)
+            for (int k = 0; k < 32; k++)
             {
-                for(int j = i % 2; j < 8; j += 2)
-                {
-                    int left = i * width;
-                    int top = j * height;
-                    rects[k] = new Rectangle(left, top, width, height);
-                    k++;
-                }
+                int i = k / 4;
+                int j = (k % 4) * 2 + (i % 2);
+                int left = i * width;
+                int top = j * height;
+                rects[k] = new Rectangle(left, top, width, height);
             }
             m_oD3D_Device.Clear(ClearFlags.Target, d3dColor2, 0.0f, 0, rects);
             m_oD3D_Device.BeginScene();
